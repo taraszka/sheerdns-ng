@@ -1,0 +1,277 @@
+.\" -*- nroff -*-
+.TH sheerdns 1 "Jan 11 2000"
+.SH NAME
+sheerdns - master DNS server
+.SH SYNOPSIS
+\fBsheerdns\fP [\fB-ttl\fP \fIseconds\fP] [\fB-p\fP \fIport\fP] [\fB-i\fP \fIiface-ip\fP] [\fB-d\fP]
+.PP
+\fBsheerdnshash\fP \fIstring\fP
+.PP
+.PP
+.SH DESCRIPTION
+\fBsheerdns\fP is a master DNS server whose zone records
+are stored on a One-Record-Per-File bases. Because of
+this, \fBsheerdns\fP is the simplest of any DNS to
+configure, the easiest to update, and the most efficient
+for networks that experience a lot of updates (for example
+master servers for dynamic IP address ranges). You \fInever\fP
+have to restart \fBsheerdns\fP; any updates are available
+immediately without having to notify the \fBsheerdns\fP
+process.
+.PP
+\fBsheerdns\fP is secure. \fBsheerdns\fP is fast because
+Unix operating systems cache small files in memory.
+.PP
+\fBsheerdns\fP is written in strict ANSI C.
+.PP
+\fBsheerdnshash\fP creates a directory
+\fB/var/sheerdns/\fP\fIXX\fP\fB/\fP\fIstring\fP\fB/\fP, where \fIXX\fP
+is a hash of the string, and outputs \fIXX\fP to stdout.
+.PP
+Note that \fBsheerdns\fP is \fInot\fP a caching nameserver
+for resolving queries about the rest of the Internet. It
+is a master server for telling the rest of Internet about
+the zones you are responsible for. No clients anywhere
+should have a \fB/etc/resolv.conf\fP "nameserver" entry
+that points to a \fBsheerdns\fP server.
+.PP
+\fBsheerdns\fP works by looking up queries from files of
+the name:
+.PP
+.RS
+\fB/var/sheerdns/\fP\fIXX\fP\fB/\fP\fIfull.doma.in\fP\fB/\fP\fIquery-type\fP.
+.RE
+.PP
+These files are created by the administrator (or one of
+his/her sh/perl/python/php scripts). You can write
+anything to these files -- \fBsheerdns\fP will answer with
+their contents even if they are bogus. The \fIXX\fP is an
+upper-case two character hex number of the range \fB00\fP
+to \fBFF\fP.
+.PP
+Each of these files contains one or more newline separated
+strings. There should be no leading newlines, and zero or one
+trailing newline. In the case of A records, the strings are
+IP addresses, for example \fB192.0.2.1\fP. If there are
+several IP addresses in the file, they are
+order-randomized before return.
+.PP
+In the case of PTR, MX, NS, SOA, and CNAME records, the
+strings are host-names. For MX and NS you can have
+multiple hostnames per file, but for PTR, SOA, and CNAME
+records, you must have only one entry in each file. TXT
+records can contain anything---one record is returned for
+each line in the file (TXT is not discussed again).
+.PP
+For MX records, the first entry in the file is given a
+priority of 10, the second 20, and so on.
+.PP
+For SOA records, the modified time of the file counts as
+the Serial-Number, and the contents as the name-server.
+The administrator email address returned is just the
+name-server prepended with "hostmaster", so you should make
+sure this email address exists for that domain and is
+reachable. The remaining fields are hardcoded to reasonable
+default values. Note that time fields for SOA records are only
+used for zone transfers hence are irrelevant here.
+.PP
+For NS and SOA records, an entry for a domain is valid for
+all domains below it. For example, if you create an NS
+record for the domain \fBtest.edu\fP, then that NS record
+is returned for the domain \fBwww.test.edu\fP,
+\fBftp.henry.test.edu\fP, as well as
+\fBuser1.lab.chemistry.test.edu\fP. On the other hand a
+separate NS record can be created for
+\fBlab.chemistry.test.edu\fP, applying to all
+domains \fB*.lab.chemistry.test.edu\fP, \fB*.*.lab.chemistry.test.edu\fP etc.
+This works because \fBsheerdns\fP searches for NS records
+by iteratively deleting the text up to the front most dot
+until a nameserver is found. This gives the intuitively
+expected behavior.
+.PP
+There is a special case for using \fBsheerdns\fP as a root
+nameserver. See the example below.
+.PP
+\fBsheerdns\fP does lookups in lower case. All filenames
+and file contents must be in lower case. \fBsheerdns\fP
+does no interpretation of any of the file contents except
+for the characters \\f\\n\\r\\t\\v and the dot character,
+so it can probably manage UTF-8 domain names without a
+problem.
+.PP
+\fBsheerdns\fP does not send TCP results longer than 1024
+bytes, neither does it set the TC bit if the response
+ought to be longer. If there are too many records to fit
+in the packet, then trailing records are omitted to keep
+within the 1024 byte limit. The packet format will be
+valid none-the-less. Administrators should ensure that
+their site is not so complex that large packets need to be
+sent.
+.PP
+.SH OPTIONS
+.TP
+\fB-ttl\fP \fIseconds\fP
+The Time-To-Live field to be set on outgoing packets.
+Records that are likely to be fixed (not dynamic) are given
+a 3-day ttl. Examples are the IP address of the NS record,
+and the CNAME, MX, NS, and SOA records. All other records
+are given the ttl specified in this option. The default is
+86400 seconds (one day). This option should be set to 10
+seconds for dynamic IP address ranges.
+.TP
+\fB-p\fP \fIport\fP
+Listen port. Default is 53.
+.TP
+\fB-i\fP \fIiface-ip\fP
+\fIinface-ip\fP is the network card you want to listen on.
+If omitted, it defaults to 0.0.0.0 meaning \fIall\fP interfaces.
+.TP
+\fB-d\fP
+Fork twice into the background (to run as a daemon
+process); otherwise \fBsheerdns\fP runs in the foreground.
+.PP
+.SH WILDCARDS
+An entry such as \fB*.test.com\fP will return results
+as expected. This means you should
+.PP
+.RS
+.nf
+echo 192.0.2.1 > /var/sheerdns/`sheerdnshash '*'.test.com`/'*'.test.com/A
+dig @localhost A lsdjkfhalsdfkjh.test.com
+.fi
+.RE
+.PP
+Note that quotes around the asterisk. This means the filename
+has an asterisk in it which is never a good idea on Unix systems.
+.PP
+.SH EXAMPLES
+These examples assume that you have already invoked \fBsheerdns\fP,
+that you know what kind of records are appropriate to create, that
+you do not guess, and that you realize that the examples are merely
+shown for demonstration and not as a recommendation for the kinds
+of records really required.
+.PP
+Add mutiple A records for \fBtest.com\fP for round robin sharing:
+.PP
+.RS
+.nf
+echo 192.0.2.1 > /var/sheerdns/`sheerdnshash test.com`/test.com/A
+echo 192.0.2.2 >> /var/sheerdns/`sheerdnshash test.com`/test.com/A
+echo 192.0.2.3 >> /var/sheerdns/`sheerdnshash test.com`/test.com/A
+dig @localhost A test.com
+dig @localhost A test.com
+dig @localhost A test.com
+.fi
+.RE
+.PP
+Add a PTR records for \fBtest.com\fP:
+.PP
+.RS
+.nf
+echo test.com > /var/sheerdns/`sheerdnshash 192.0.2.1`/192.0.2.1/PTR
+echo test.com > /var/sheerdns/`sheerdnshash 192.0.2.2`/192.0.2.2/PTR
+echo test.com > /var/sheerdns/`sheerdnshash 192.0.2.3`/192.0.2.3/PTR
+echo ns.ispfortest.net > /var/sheerdns/`sheerdnshash 192.0.2`/192.0.2/NS
+dig @localhost PTR 1.2.0.192.in-addr.arpa
+.fi
+.RE
+.PP
+Add an MX record for \fBtest.com\fP with (IMPORTANT)
+\fIboth\fP its forward, reverse, \fIand\fP nameserver
+lookups:
+.PP
+.RS
+.nf
+echo mail.test.com > /var/sheerdns/`sheerdnshash test.com`/test.com/MX
+echo 192.0.3.99 > /var/sheerdns/`sheerdnshash mail.test.com`/mail.test.com/A
+echo mail.test.com > /var/sheerdns/`sheerdnshash 192.0.3.99`/192.0.3.99/PTR
+echo ns.ispfortest.net > /var/sheerdns/`sheerdnshash test.com`/test.com/NS
+dig @localhost MX test.com
+.fi
+.RE
+.PP
+Add an SOA record for \fBtest.com\fP. Note that although
+SOA records are only required for zone transfers, some
+institutions may demand them. The only configurable data
+item in the SOA record is the authoritative nameserver
+which is inserted as follows:
+.PP
+.RS
+.nf
+echo ns.ispfortest.net > /var/sheerdns/`sheerdnshash test.com`/test.com/SOA
+dig @localhost SOA test.com
+.fi
+.RE
+.PP
+Add an CNAME record for \fBwww.test.com\fP. If you use a
+CNAME, you should only have one line in the CNAME file,
+and it should be the only file in the domain's directory,
+and the CNAME should not appear anywhere as the text of
+any other records. I repeat: "\fIIf you use a CNAME, you
+should only have one line in the CNAME file, and it should
+be the only file in the domain's directory, and the CNAME
+should not appear anywhere as the text of any other
+records.\fP". Do I need to say it a third time?
+.PP
+.RS
+.nf
+echo "I will not leave out the next command"
+rm -f /var/sheerdns/`sheerdnshash www.test.com`/www.test.com/*
+grep -w 'www[.]test[.]com' `find /var/sheerdns/ -type f` && \\
+    echo "This DNS setup is broken"
+echo "I will not leave out the previous command"
+echo test.com > /var/sheerdns/`sheerdnshash www.test.com`/www.test.com/CNAME
+dig @localhost A www.test.com
+.fi
+.RE
+.PP
+Using \fBsheerdns\fP as a root nameserver. Note that for
+root domains, the hash is especially omitted:
+.PP
+.RS
+.nf
+> /var/sheerdns/NS
+> /var/sheerdns/SOA
+for i in  \\
+ a:198.41.0.4     h:128.63.2.53     c:192.33.4.12     g:192.112.36.4    \\
+ f:192.5.5.241    b:128.9.0.107     j:192.58.128.30   k:193.0.14.129    \\
+ l:198.32.64.12   m:202.12.27.33    i:192.36.148.17   e:192.203.230.10  ; do
+    N=`echo $i | cut -f1 -d:`.root-servers.net
+    echo $i | cut -f2 -d: > /var/sheerdns/`sheerdnshash $N`/$N/A
+    echo $N >> /var/sheerdns/NS
+    echo $N >> /var/sheerdns/SOA
+done
+dig @localhost SOA .
+dig @localhost NS .
+.fi
+.RE
+.PP
+.SH "ENVIRONMENT VARIABLES"
+There are no applicable environment variables.
+.PP
+.SH "CONFIGURATION FILE"
+\fBsheerdns\fP has no configuration file. It just works.
+.PP
+.SH BUGS
+No bugs are known at present.
+.PP
+.SH FILES
+\fBsheerdns\fP makes use of the directory \fB/var/sheerdns/*/*\fP
+to lookup entries. These directories are created on startup.
+No errors are reported if the directories could not be created.
+.PP
+.SH STANDARDS
+Hmmm, more than I have time to read. Start with RFC-1035.
+.PP
+.SH AVAILABILITY
+http://freshmeat.net/ will always have links to the latest
+sheerdns.tar.gz source file as well as this page.
+.PP
+.SH AUTHOR
+Krzysztof Taraszka <krzysztof.taraszka@gmail.com>
+Paul Sheer <psheer@icon.co.za>
+.PP
+.SH "SEE ALSO"
+\fBdig\fP(1), \fBnslookup\fP(8), \fBBIND\fP, \fBMyDNS\fP,
+\fBdjbdns\fP, \fBtinydns\fP, \fBDents\fP.
+
