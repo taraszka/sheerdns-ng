@@ -1,5 +1,6 @@
 sheerdns-ng
 ===========
+
 sheerdns-ng is a fork of an old sheerdns (http://threading.2038bug.com/sheerdns/) with few enhancements, such as: 
 - run at chroot
 - reply default responses for any DNS queries
