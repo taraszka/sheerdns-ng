@@ -7,15 +7,12 @@ sheerdns-ng is a fork of an old sheerdns (http://threading.2038bug.com/sheerdns/
 
 
 INSTALLATION:
--------------
 Simply type:
  $ make <ENTER>
  $ make install
 
 
 USAGE:
-------
-
 Run a sheerdns server:
  $ ./sheerdns <ENTER>
 
@@ -24,10 +21,7 @@ To run in a background:
 
 
 EXAMPLES:
----------
-
-setup default responses for any queries
----------------------------------------
+- setup default responses for any queries
 
  $ echo 192.168.2.1 > /var/sheerdns/default/A
  $ dig -t A www.google.com @localhost
@@ -72,9 +66,7 @@ setup default responses for any queries
 
 As you can see above sheerdns replied for any 'A' queries that isn't at /var/sheerdns/XY/domainname/A with default 'A' value from /var/sheerdns/default/A
 
-
-Add aol.com into sheerdns
--------------------------
+- Add aol.com into sheerdns
 
  $ echo 207.200.74.38 > /var/sheerdns/`./sheerdnshash aol.com`/aol.com/A
  $ dig -t A aol.com @localhost
