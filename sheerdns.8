@@ -1,5 +1,5 @@
 .\" -*- nroff -*-
-.TH sheerdns 1 "Jan 11 2000"
+.TH sheerdns 1 "Oct 22 2012"
 .SH NAME
 sheerdns - master DNS server
 .SH SYNOPSIS
@@ -28,6 +28,9 @@ Unix operating systems cache small files in memory.
 \fB/var/sheerdns/\fP\fIXX\fP\fB/\fP\fIstring\fP\fB/\fP, where \fIXX\fP
 is a hash of the string, and outputs \fIXX\fP to stdout.
 .PP
+\fBsheerdns\fP creates a directory
+\fB/var/sheerdns/default\fP, where you can put a default responses for any DNS queries.
+.PP
 Note that \fBsheerdns\fP is \fInot\fP a caching nameserver
 for resolving queries about the rest of the Internet. It
 is a master server for telling the rest of Internet about
@@ -39,6 +42,8 @@ that points to a \fBsheerdns\fP server.
 the name:
 .PP
 .RS
+\fB/var/sheerdns/default/\fP
+
 \fB/var/sheerdns/\fP\fIXX\fP\fB/\fP\fIfull.doma.in\fP\fB/\fP\fIquery-type\fP.
 .RE
 .PP
@@ -246,6 +251,27 @@ dig @localhost NS .
 .fi
 .RE
 .PP
+Add a PTR records for \fBtest.com\fP:
+.PP
+.RS
+.nf
+echo test.com > /var/sheerdns/`sheerdnshash 192.0.2.1`/192.0.2.1/PTR
+echo test.com > /var/sheerdns/`sheerdnshash 192.0.2.2`/192.0.2.2/PTR
+echo test.com > /var/sheerdns/`sheerdnshash 192.0.2.3`/192.0.2.3/PTR
+echo ns.ispfortest.net > /var/sheerdns/`sheerdnshash 192.0.2`/192.0.2/NS
+dig @localhost PTR 1.2.0.192.in-addr.arpa
+.fi
+.RE
+.PP
+Add \fBdefault responses\fP for any queries. Note that if domain exist at /var/sheerdns/`sheerdnshash domain`/domain and have A record then reply from \fI/var/sheerdns/default\fP will not happend:
+.PP
+.RS
+.nf
+echo 192.168.0.1 > /var/sheerdns/default/A
+dig @localhost A google.com
+.fi
+.RE
+.PP
 .SH "ENVIRONMENT VARIABLES"
 There are no applicable environment variables.
 .PP
@@ -267,8 +293,10 @@ Hmmm, more than I have time to read. Start with RFC-1035.
 http://freshmeat.net/ will always have links to the latest
 sheerdns.tar.gz source file as well as this page.
 .PP
-.SH AUTHOR
+.SH AUTHORS
+
 Krzysztof Taraszka <krzysztof.taraszka@gmail.com>
+
 Paul Sheer <psheer@icon.co.za>
 .PP
 .SH "SEE ALSO"
