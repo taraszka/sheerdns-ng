@@ -1,2 +1,102 @@
 sheerdns-ng
 ===========
+sheerdns-ng is a fork of an old sheerdns (http://threading.2038bug.com/sheerdns/) with few enhancements, such as: 
+- run at chroot
+- reply default responses for any DNS queries
+
+
+INSTALLATION:
+-------------
+Simply type:
+ $ make <ENTER>
+ $ make install
+
+
+USAGE:
+------
+
+Run a sheerdns server:
+ $ ./sheerdns <ENTER>
+
+To run in a background:
+ $ ./sheerdns -d <ENTER>
+
+
+EXAMPLES:
+---------
+
+setup default responses for any queries
+---------------------------------------
+
+ $ echo 192.168.2.1 > /var/sheerdns/default/A
+ $ dig -t A www.google.com @localhost
+ 
+ ; <<>> DiG 9.7.3 <<>> -t A www.google.com @localhost
+ ;; global options: +cmd
+ ;; Got answer:
+ ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 38683
+ ;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+ ;; WARNING: recursion requested but not available
+
+ ;; QUESTION SECTION:
+ ;www.google.com.			IN	A
+
+ ;; ANSWER SECTION:
+ www.google.com.		86400	IN	A	192.168.2.1
+
+ ;; Query time: 0 msec
+ ;; SERVER: 127.0.0.1#53(127.0.0.1)
+ ;; WHEN: Tue Oct 23 01:06:45 2012
+ ;; MSG SIZE  rcvd: 48
+
+ $ dig -t A aol.com @localhost
+
+ ; <<>> DiG 9.7.3 <<>> -t A aol.com @localhost
+ ;; global options: +cmd
+ ;; Got answer:
+ ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 11448
+ ;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+ ;; WARNING: recursion requested but not available
+
+ ;; QUESTION SECTION:
+ ;aol.com.			IN	A
+
+ ;; ANSWER SECTION:
+ aol.com.		86400	IN	A	192.168.2.1
+
+ ;; Query time: 2 msec
+ ;; SERVER: 127.0.0.1#53(127.0.0.1)
+ ;; WHEN: Tue Oct 23 01:07:47 2012
+ ;; MSG SIZE  rcvd: 41
+
+As you can see above sheerdns replied for any 'A' queries that isn't at /var/sheerdns/XY/domainname/A with default 'A' value from /var/sheerdns/default/A
+
+
+Add aol.com into sheerdns
+-------------------------
+
+ $ echo 207.200.74.38 > /var/sheerdns/`./sheerdnshash aol.com`/aol.com/A
+ $ dig -t A aol.com @localhost
+
+ ; <<>> DiG 9.7.3 <<>> -t A aol.com @localhost
+ ;; global options: +cmd
+ ;; Got answer:
+ ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 42306
+ ;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+ ;; WARNING: recursion requested but not available
+
+ ;; QUESTION SECTION:
+ ;aol.com.			IN	A
+
+ ;; ANSWER SECTION:
+ aol.com.		86400	IN	A	207.200.74.38
+
+ ;; Query time: 0 msec
+ ;; SERVER: 127.0.0.1#53(127.0.0.1)
+ ;; WHEN: Tue Oct 23 01:12:21 2012
+ ;; MSG SIZE  rcvd: 41
+
+As you can see above sheerdns replied with IP 207.200.74.38 for 'A' query for aol.com
+
+For more examples please read sheerns-ng.html
+
