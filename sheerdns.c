@@ -147,6 +147,7 @@ main (int argc, char **argv) {
     u2 port = 53;
     u1 in_buf[1536];		/* cannot get packets bigger than this on ethernet */
     char *listen_interface = "0.0.0.0";
+    char unable_chroot[255] = "Unable chroot into ";
 
     if (argc > 1) {
 	int k;
@@ -168,12 +169,13 @@ main (int argc, char **argv) {
 		exit (1); }}}
 
     make_directories ();
-
+    
     chdir(SHEERDNS_DIR);
     if (chroot(SHEERDNS_DIR) != 0) {
-	perror("Unable chroot into /var/sheerdns");
+	strcat(unable_chroot, SHEERDNS_DIR);
+	perror(unable_chroot);
         exit (1);
-     }
+    }
 
     signal (SIGINT, interrupt);
     signal (SIGPIPE, SIG_IGN);
