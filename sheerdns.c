@@ -602,6 +602,7 @@ make_directories (void) {
     char path[256];
     int j, fd, l;
     mkdir (SHEERDNS_DIR, 0700);
+    mkdir (SHEERDNS_DIR "/default", 0700);
     strcpy (path, SHEERDNS_DIR);
     mkdir (path, 0700);
     l = strlen (path);
