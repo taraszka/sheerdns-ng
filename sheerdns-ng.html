@@ -1,74 +1,89 @@
-<html>
-<head>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
 <meta name="generator" content="groff -Thtml, see www.gnu.org">
-<meta name="Content-Style" content="text/css">
-<title>sheerdns</title>
+<meta name="Content-Style" content="text/css"><title>sheerdns</title>
+
 </head>
 <body>
-
-<h1 align=center>sheerdns-ng</h1>
-<h2 align=center><i>based on sheerdns</i></h2>
+<h1 align="center">sheerdns-ng<br>
+<small style="font-style: italic;"><small>based on
+sheerdns</small></small><br>
+</h1>
+<br>
 <a href="#NAME">NAME</a><br>
 <a href="#SYNOPSIS">SYNOPSIS</a><br>
 <a href="#DESCRIPTION">DESCRIPTION</a><br>
 <a href="#OPTIONS">OPTIONS</a><br>
 <a href="#WILDCARDS">WILDCARDS</a><br>
 <a href="#EXAMPLES">EXAMPLES</a><br>
-<a href="#ENVIRONMENT VARIABLES">ENVIRONMENT VARIABLES</a><br>
-<a href="#CONFIGURATION FILE">CONFIGURATION FILE</a><br>
+<a href="#ENVIRONMENT%20VARIABLES">ENVIRONMENT VARIABLES</a><br>
+<a href="#CONFIGURATION%20FILE">CONFIGURATION FILE</a><br>
 <a href="#BUGS">BUGS</a><br>
 <a href="#FILES">FILES</a><br>
 <a href="#STANDARDS">STANDARDS</a><br>
 <a href="#AVAILABILITY">AVAILABILITY</a><br>
 <a href="#AUTHOR">AUTHOR</a><br>
-<a href="#SEE ALSO">SEE ALSO</a><br>
-
+<a href="#SEE%20ALSO">SEE ALSO</a><br>
 <hr>
-<!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Thu Feb 10 22:33:03 2005 -->
-<a name="NAME"></a>
+<!-- Creator : groff version 1.18.1 --><!-- CreationDate: Thu Feb 10 22:33:03 2005 --><a name="NAME"></a>
 <h2>NAME</h2>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
 <p>sheerdns - master DNS server</p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <a name="SYNOPSIS"></a>
 <h2>SYNOPSIS</h2>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
-<p><b>sheerdns</b> [<b>-ttl</b> <i>seconds</i>] [<b>-p</b>
-<i>port</i>] [<b>-i</b> <i>iface-ip</i>] [<b>-d</b>]</p>
+<p><b>sheerdns</b> [<b>-ttl</b> <i>seconds</i>]
+[<b>-p</b>
+<i>port</i>] [<b>-i</b> <i>iface-ip</i>]
+[<b>-d</b>]</p>
 <!-- INDENTATION -->
 <p><b>sheerdnshash</b> <i>string</i></p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <a name="DESCRIPTION"></a>
 <h2>DESCRIPTION</h2>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
-<p><b>sheerdns</b> is a master DNS server whose zone records
+<p><b>sheerdns</b> is a master DNS server whose
+zone records
 are stored on a One-Record-Per-File bases. Because of this,
-<b>sheerdns</b> is the simplest of any DNS to configure, the
+<b>sheerdns</b> is the simplest of any DNS to
+configure, the
 easiest to update, and the most efficient for networks that
 experience a lot of updates (for example master servers for
-dynamic IP address ranges). You <i>never</i> have to restart
-<b>sheerdns</b>; any updates are available immediately
+dynamic IP address ranges). You <i>never</i> have to
+restart
+<b>sheerdns</b>; any updates are available
+immediately
 without having to notify the <b>sheerdns</b> process.</p>
 <!-- INDENTATION -->
-<p><b>sheerdns</b> is secure. <b>sheerdns</b> is fast
+<p><b>sheerdns</b> is secure. <b>sheerdns</b>
+is fast
 because Unix operating systems cache small files in
 memory.</p>
 <!-- INDENTATION -->
@@ -77,33 +92,48 @@ memory.</p>
 <p><b>sheerdnshash</b> creates a directory
 <b>/var/sheerdns/</b><i>XX</i><b>/</b><i>string</i><b>/</b>,
 where <i>XX</i> is a hash of the string, and outputs
-<i>XX</i> to stdout.</p>
+<i>XX</i> to stdout.<br>
+<span style="font-weight: bold;">sheerdns</span>
+creates a directory <span style="font-weight: bold;">/var/sheerdns/default</span>,
+where you can put a default responses for any DNS queries.</p>
 <!-- INDENTATION -->
-<p>Note that <b>sheerdns</b> is <i>not</i> a caching
+<p>Note that <b>sheerdns</b> is <i>not</i>
+a caching
 nameserver for resolving queries about the rest of the
 Internet. It is a master server for telling the rest of
 Internet about the zones you are responsible for. No clients
 anywhere should have a <b>/etc/resolv.conf</b>
-&quot;nameserver&quot; entry that points to a
+"nameserver" entry that points to a
 <b>sheerdns</b> server.</p>
 <!-- INDENTATION -->
-<p><b>sheerdns</b> works by looking up queries from files of
+<p><b>sheerdns</b> works by looking up queries
+from files of
 the name:</p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="20%"></td>
 <td width="79%">
-
-<p><b>/var/sheerdns/</b><i>XX</i><b>/</b><i>full.doma.in</i><b>/</b><i>query-type</i>.</p></td>
-</table></p>
+<p><b>/var/sheerdns/default/</b>
+</p>
+<p><b>/var/sheerdns/</b><i>XX</i><b>/</b><i>full.doma.in</i><b>/</b><i>query-type</i>.&nbsp;</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
 <p>These files are created by the administrator (or one of
@@ -133,7 +163,7 @@ priority of 10, the second 20, and so on.</p>
 <p>For SOA records, the modified time of the file counts as
 the Serial-Number, and the contents as the name-server. The
 administrator email address returned is just the name-server
-prepended with &quot;hostmaster&quot;, so you should make
+prepended with "hostmaster", so you should make
 sure this email address exists for that domain and is
 reachable. The remaining fields are hardcoded to reasonable
 default values. Note that time fields for SOA records are
@@ -144,27 +174,34 @@ for all domains below it. For example, if you create an NS
 record for the domain <b>test.edu</b>, then that NS record
 is returned for the domain <b>www.test.edu</b>,
 <b>ftp.henry.test.edu</b>, as well as
-<b>user1.lab.chemistry.test.edu</b>. On the other hand a
+<b>user1.lab.chemistry.test.edu</b>. On the other
+hand a
 separate NS record can be created for
-<b>lab.chemistry.test.edu</b>, applying to all domains
+<b>lab.chemistry.test.edu</b>, applying to all
+domains
 <b>*.lab.chemistry.test.edu</b>,
-<b>*.*.lab.chemistry.test.edu</b> etc. This works because
-<b>sheerdns</b> searches for NS records by iteratively
+<b>*.*.lab.chemistry.test.edu</b> etc. This works
+because
+<b>sheerdns</b> searches for NS records by
+iteratively
 deleting the text up to the front most dot until a
 nameserver is found. This gives the intuitively expected
 behavior.</p>
 <!-- INDENTATION -->
-<p>There is a special case for using <b>sheerdns</b> as a
+<p>There is a special case for using <b>sheerdns</b>
+as a
 root nameserver. See the example below.</p>
 <!-- INDENTATION -->
-<p><b>sheerdns</b> does lookups in lower case. All filenames
+<p><b>sheerdns</b> does lookups in lower case.
+All filenames
 and file contents must be in lower case. <b>sheerdns</b>
 does no interpretation of any of the file contents except
 for the characters \f\n\r\t\v and the dot character, so it
 can probably manage UTF-8 domain names without a
 problem.</p>
 <!-- INDENTATION -->
-<p><b>sheerdns</b> does not send TCP results longer than
+<p><b>sheerdns</b> does not send TCP results
+longer than
 1024 bytes, neither does it set the TC bit if the response
 ought to be longer. If there are too many records to fit in
 the packet, then trailing records are omitted to keep within
@@ -172,21 +209,29 @@ the 1024 byte limit. The packet format will be valid
 none-the-less. Administrators should ensure that their site
 is not so complex that large packets need to be sent.</p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <a name="OPTIONS"></a>
 <h2>OPTIONS</h2>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
-<p><b>-ttl</b> <i>seconds</i></p></td>
-</table></p>
+<p><b>-ttl</b> <i>seconds</i></p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
 <!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="21%"></td>
 <td width="77%">
 <p>The Time-To-Live field to be set on outgoing packets.
@@ -197,312 +242,392 @@ are given the ttl specified in this option. The default is
 86400 seconds (one day). This option should be set to 10
 seconds for dynamic IP address ranges.</p>
 </td>
+</tr>
+</tbody>
 </table>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
-<p><b>-p</b> <i>port</i></p></td>
-</table></p>
+<p><b>-p</b> <i>port</i></p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
 <!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="21%"></td>
 <td width="77%">
 <p>Listen port. Default is 53.</p>
 </td>
+</tr>
+</tbody>
 </table>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
-<p><b>-i</b> <i>iface-ip</i></p></td>
-</table></p>
+<p><b>-i</b> <i>iface-ip</i></p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
 <!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="21%"></td>
 <td width="77%">
-<p><i>inface-ip</i> is the network card you want to listen
+<p><i>inface-ip</i> is the network card you
+want to listen
 on. If omitted, it defaults to 0.0.0.0 meaning <i>all</i>
 interfaces.</p>
 </td>
+</tr>
+</tbody>
 </table>
 <!-- TABS -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="4" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="4" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="13%"></td>
 <td width="2%">
-
 <p><b>-d</b></p>
 </td>
 <td width="5%"></td>
 <td width="77%">
-
 <p>Fork twice into the background (to run as a daemon
 process); otherwise <b>sheerdns</b> runs in the
 foreground.</p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <a name="WILDCARDS"></a>
 <h2>WILDCARDS</h2>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
-<p>An entry such as <b>*.test.com</b> will return results as
+<p>An entry such as <b>*.test.com</b> will
+return results as
 expected. This means you should</p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="20%"></td>
 <td width="79%">
-<pre>echo 192.0.2.1 &gt; /var/sheerdns/&lsquo;sheerdnshash &rsquo;*&rsquo;.test.com&lsquo;/&rsquo;*&rsquo;.test.com/A
-dig @localhost A lsdjkfhalsdfkjh.test.com
-</pre>
+<pre>echo 192.0.2.1 &gt; /var/sheerdns/&#8216;sheerdnshash &#8217;*&#8217;.test.com&#8216;/&#8217;*&#8217;.test.com/A<br>dig @localhost A lsdjkfhalsdfkjh.test.com<br></pre>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <!-- INDENTATION -->
-
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
 <p>Note that quotes around the asterisk. This means the
 filename has an asterisk in it which is never a good idea on
 Unix systems.</p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <a name="EXAMPLES"></a>
 <h2>EXAMPLES</h2>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
 <p>These examples assume that you have already invoked
-<b>sheerdns</b>, that you know what kind of records are
+<b>sheerdns</b>, that you know what kind of records
+are
 appropriate to create, that you do not guess, and that you
 realize that the examples are merely shown for demonstration
 and not as a recommendation for the kinds of records really
 required.</p>
 <!-- INDENTATION -->
-<p>Add mutiple A records for <b>test.com</b> for round robin
+<p>Add mutiple A records for <b>test.com</b>
+for round robin
 sharing:</p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="20%"></td>
 <td width="79%">
-<pre>echo 192.0.2.1 &gt; /var/sheerdns/&lsquo;sheerdnshash test.com&lsquo;/test.com/A
-echo 192.0.2.2 &gt;&gt; /var/sheerdns/&lsquo;sheerdnshash test.com&lsquo;/test.com/A
-echo 192.0.2.3 &gt;&gt; /var/sheerdns/&lsquo;sheerdnshash test.com&lsquo;/test.com/A
-dig @localhost A test.com
-dig @localhost A test.com
-dig @localhost A test.com
-</pre>
+<pre>echo 192.0.2.1 &gt; /var/sheerdns/&#8216;sheerdnshash test.com&#8216;/test.com/A<br>echo 192.0.2.2 &gt;&gt; /var/sheerdns/&#8216;sheerdnshash test.com&#8216;/test.com/A<br>echo 192.0.2.3 &gt;&gt; /var/sheerdns/&#8216;sheerdnshash test.com&#8216;/test.com/A<br>dig @localhost A test.com<br>dig @localhost A test.com<br>dig @localhost A test.com<br></pre>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <!-- INDENTATION -->
-
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
 <p>Add a PTR records for <b>test.com</b>:</p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="20%"></td>
 <td width="79%">
-<pre>echo test.com &gt; /var/sheerdns/&lsquo;sheerdnshash 192.0.2.1&lsquo;/192.0.2.1/PTR
-echo test.com &gt; /var/sheerdns/&lsquo;sheerdnshash 192.0.2.2&lsquo;/192.0.2.2/PTR
-echo test.com &gt; /var/sheerdns/&lsquo;sheerdnshash 192.0.2.3&lsquo;/192.0.2.3/PTR
-echo ns.ispfortest.net &gt; /var/sheerdns/&lsquo;sheerdnshash 192.0.2&lsquo;/192.0.2/NS
-dig @localhost PTR 1.2.0.192.in-addr.arpa
-</pre>
+<pre>echo test.com &gt; /var/sheerdns/&#8216;sheerdnshash 192.0.2.1&#8216;/192.0.2.1/PTR<br>echo test.com &gt; /var/sheerdns/&#8216;sheerdnshash 192.0.2.2&#8216;/192.0.2.2/PTR<br>echo test.com &gt; /var/sheerdns/&#8216;sheerdnshash 192.0.2.3&#8216;/192.0.2.3/PTR<br>echo ns.ispfortest.net &gt; /var/sheerdns/&#8216;sheerdnshash 192.0.2&#8216;/192.0.2/NS<br>dig @localhost PTR 1.2.0.192.in-addr.arpa<br></pre>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <!-- INDENTATION -->
-
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
-<p>Add an MX record for <b>test.com</b> with (IMPORTANT)
-<i>both</i> its forward, reverse, <i>and</i> nameserver
+<p>Add an MX record for <b>test.com</b> with
+(IMPORTANT)
+<i>both</i> its forward, reverse, <i>and</i>
+nameserver
 lookups:</p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="20%"></td>
 <td width="79%">
-<pre>echo mail.test.com &gt; /var/sheerdns/&lsquo;sheerdnshash test.com&lsquo;/test.com/MX
-echo 192.0.3.99 &gt; /var/sheerdns/&lsquo;sheerdnshash mail.test.com&lsquo;/mail.test.com/A
-echo mail.test.com &gt; /var/sheerdns/&lsquo;sheerdnshash 192.0.3.99&lsquo;/192.0.3.99/PTR
-echo ns.ispfortest.net &gt; /var/sheerdns/&lsquo;sheerdnshash test.com&lsquo;/test.com/NS
-dig @localhost MX test.com
-</pre>
+<pre>echo mail.test.com &gt; /var/sheerdns/&#8216;sheerdnshash test.com&#8216;/test.com/MX<br>echo 192.0.3.99 &gt; /var/sheerdns/&#8216;sheerdnshash mail.test.com&#8216;/mail.test.com/A<br>echo mail.test.com &gt; /var/sheerdns/&#8216;sheerdnshash 192.0.3.99&#8216;/192.0.3.99/PTR<br>echo ns.ispfortest.net &gt; /var/sheerdns/&#8216;sheerdnshash test.com&#8216;/test.com/NS<br>dig @localhost MX test.com<br></pre>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <!-- INDENTATION -->
-
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
-<p>Add an SOA record for <b>test.com</b>. Note that although
+<p>Add an SOA record for <b>test.com</b>. Note
+that although
 SOA records are only required for zone transfers, some
 institutions may demand them. The only configurable data
 item in the SOA record is the authoritative nameserver which
 is inserted as follows:</p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="20%"></td>
 <td width="79%">
-<pre>echo ns.ispfortest.net &gt; /var/sheerdns/&lsquo;sheerdnshash test.com&lsquo;/test.com/SOA
-dig @localhost SOA test.com
-</pre>
+<pre>echo ns.ispfortest.net &gt; /var/sheerdns/&#8216;sheerdnshash test.com&#8216;/test.com/SOA<br>dig @localhost SOA test.com<br></pre>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <!-- INDENTATION -->
-
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
-<p>Add an CNAME record for <b>www.test.com</b>. If you use a
+<p>Add an CNAME record for <b>www.test.com</b>.
+If you use a
 CNAME, you should only have one line in the CNAME file, and
-it should be the only file in the domain&rsquo;s directory,
+it should be the only file in the domain&#8217;s directory,
 and the CNAME should not appear anywhere as the text of any
-other records. I repeat: &quot;<i>If you use a CNAME, you
+other records. I repeat: "<i>If you use a CNAME, you
 should only have one line in the CNAME file, and it should
-be the only file in the domain&rsquo;s directory, and the
+be the only file in the domain&#8217;s directory, and the
 CNAME should not appear anywhere as the text of any other
-records.</i>&quot;. Do I need to say it a third time?</p>
+records.</i>". Do I need to say it a third time?</p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="20%"></td>
 <td width="79%">
-<pre>echo &quot;I will not leave out the next command&quot;
-rm -f /var/sheerdns/&lsquo;sheerdnshash www.test.com&lsquo;/www.test.com/*
-grep -w &rsquo;www[.]test[.]com&rsquo; &lsquo;find /var/sheerdns/ -type f&lsquo; &amp;&amp; \
-    echo &quot;This DNS setup is broken&quot;
-echo &quot;I will not leave out the previous command&quot;
-echo test.com &gt; /var/sheerdns/&lsquo;sheerdnshash www.test.com&lsquo;/www.test.com/CNAME
-dig @localhost A www.test.com
-</pre>
+<pre>echo "I will not leave out the next command"<br>rm -f /var/sheerdns/&#8216;sheerdnshash www.test.com&#8216;/www.test.com/*<br>grep -w &#8217;www[.]test[.]com&#8217; &#8216;find /var/sheerdns/ -type f&#8216; &amp;&amp; \<br> echo "This DNS setup is broken"<br>echo "I will not leave out the previous command"<br>echo test.com &gt; /var/sheerdns/&#8216;sheerdnshash www.test.com&#8216;/www.test.com/CNAME<br>dig @localhost A www.test.com<br></pre>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <!-- INDENTATION -->
-
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
-<p>Using <b>sheerdns</b> as a root nameserver. Note that for
+<p>Using <b>sheerdns</b> as a root nameserver.
+Note that for
 root domains, the hash is especially omitted:</p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="20%"></td>
 <td width="79%">
-<pre>&gt; /var/sheerdns/NS
-&gt; /var/sheerdns/SOA
-for i in  \
- a:198.41.0.4     h:128.63.2.53     c:192.33.4.12     g:192.112.36.4    \
- f:192.5.5.241    b:128.9.0.107     j:192.58.128.30   k:193.0.14.129    \
- l:198.32.64.12   m:202.12.27.33    i:192.36.148.17   e:192.203.230.10  ; do
-    N=&lsquo;echo $i | cut -f1 -d:&lsquo;.root-servers.net
-    echo $i | cut -f2 -d: &gt; /var/sheerdns/&lsquo;sheerdnshash $N&lsquo;/$N/A
-    echo $N &gt;&gt; /var/sheerdns/NS
-    echo $N &gt;&gt; /var/sheerdns/SOA
-done
-dig @localhost SOA .
-dig @localhost NS .
-</pre>
+<pre>&gt; /var/sheerdns/NS<br>&gt; /var/sheerdns/SOA<br>for i in \<br> a:198.41.0.4 h:128.63.2.53 c:192.33.4.12 g:192.112.36.4 \<br> f:192.5.5.241 b:128.9.0.107 j:192.58.128.30 k:193.0.14.129 \<br> l:198.32.64.12 m:202.12.27.33 i:192.36.148.17 e:192.203.230.10 ; do<br> N=&#8216;echo $i | cut -f1 -d:&#8216;.root-servers.net<br> echo $i | cut -f2 -d: &gt; /var/sheerdns/&#8216;sheerdnshash $N&#8216;/$N/A<br> echo $N &gt;&gt; /var/sheerdns/NS<br> echo $N &gt;&gt; /var/sheerdns/SOA<br>done<br>dig @localhost SOA .<br>dig @localhost NS .<br></pre>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
+<td width="10%"></td>
+<td width="89%">
+<p>Add <span style="font-weight: bold;">default responses</span> for any&nbsp;queries. Note
+that if domain exist at <span style="font-style: italic;">/var/sheerdns/`sheerdnshash domain`/domain</span> and have A record then reply from<span style="font-style: italic;"> /var/sheerdns/default</span> will not happend.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+<!-- INDENTATION -->
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
+<td width="20%"></td>
+<td width="79%">
+<pre>echo 192.168.0.1 &gt; /var/sheerdns/default/A<br>dig @localhost A google.com<br></pre>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
 <a name="ENVIRONMENT VARIABLES"></a>
 <h2>ENVIRONMENT VARIABLES</h2>
 <!-- INDENTATION -->
-
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
 <p>There are no applicable environment variables.</p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <a name="CONFIGURATION FILE"></a>
 <h2>CONFIGURATION FILE</h2>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
-<p><b>sheerdns</b> has no configuration file. It just
+<p><b>sheerdns</b> has no configuration file.
+It just
 works.</p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <a name="BUGS"></a>
 <h2>BUGS</h2>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
 <p>No bugs are known at present.</p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <a name="FILES"></a>
 <h2>FILES</h2>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
 <p><b>sheerdns</b> makes use of the directory
@@ -510,56 +635,77 @@ works.</p>
 directories are created on startup. No errors are reported
 if the directories could not be created.</p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <a name="STANDARDS"></a>
 <h2>STANDARDS</h2>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
 <p>Hmmm, more than I have time to read. Start with
 RFC-1035.</p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <a name="AVAILABILITY"></a>
 <h2>AVAILABILITY</h2>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
-<p>http://freshmeat.net/ will always have links to the
+<p>https://github.com/taraszka/sheerdns-ng will always have
+links to the
 latest sheerdns.tar.gz source file as well as this page.</p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <a name="AUTHOR"></a>
 <h2>AUTHOR</h2>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
-<p>Krzysztof Taraszka &lt;krzysztof.taraszka@gmail.com&gt;</p>
+<p>Krzysztof Taraszka
+&lt;krzysztof.taraszka@gmail.com&gt;</p>
 <p>Paul Sheer &lt;psheer@icon.co.za&gt;</p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <a name="SEE ALSO"></a>
 <h2>SEE ALSO</h2>
 <!-- INDENTATION -->
-<p><table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
+<p>
+<table border="0" cellpadding="0" cellspacing="0" cols="2" frame="void" rules="none" width="100%">
+<tbody>
+<tr align="left" valign="top">
 <td width="10%"></td>
 <td width="89%">
-<p><b>dig</b>(1), <b>nslookup</b>(8), <b>BIND</b>,
+<p><b>dig</b>(1), <b>nslookup</b>(8),
+<b>BIND</b>,
 <b>MyDNS</b>, <b>djbdns</b>, <b>tinydns</b>,
 <b>Dents</b>.</p>
 </td>
-</table></p>
+</tr>
+</tbody>
+</table>
+</p>
 <hr>
-</body>
-</html>
+</body></html>
