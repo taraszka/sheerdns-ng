@@ -169,6 +169,12 @@ main (int argc, char **argv) {
 
     make_directories ();
 
+    chdir(SHEERDNS_DIR);
+    if (chroot(SHEERDNS_DIR) != 0) {
+	perror("Unable chroot into /var/sheerdns");
+        exit (1);
+     }
+
     signal (SIGINT, interrupt);
     signal (SIGPIPE, SIG_IGN);
     signal (SIGHUP, SIG_IGN);

@@ -64,14 +64,14 @@ get_file_name (char *buf, int len, int qtype, unsigned char *s) {
      if (qtype < 1 || qtype > 41)
 	return 1;
     s = (unsigned char *) try_reverse_in_arpa ((char *) s);
-    sprintf(str, "%s/%s/%s/%s", SHEERDNS_DIR, hex_hash (s), s, qtype_name[qtype]);
+    sprintf(str, "%s/%s/%s/%s", "/", hex_hash (s), s, qtype_name[qtype]);
     if (*s) {
 	if ( (fd = open(str, O_RDONLY)) != -1 )
-		snprintf (buf, len, SHEERDNS_DIR "/%s/%s/%s", hex_hash (s), s, qtype_name[qtype]);
+		snprintf (buf, len, "/%s/%s/%s", hex_hash (s), s, qtype_name[qtype]);
   	else
-		snprintf (buf, len, SHEERDNS_DIR "/default/%s", qtype_name[qtype]);
+		snprintf (buf, len, "/default/%s", qtype_name[qtype]);
      } else {
-	snprintf (buf, len, SHEERDNS_DIR "/%s", qtype_name[qtype]);
+	snprintf (buf, len, "/%s", qtype_name[qtype]);
     };
     free (s);
     return 0; }

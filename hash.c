@@ -42,7 +42,7 @@ main (int argc, char **argv) {
 	int l;
 	unsigned char *s;
 	s = (unsigned char *) hex_hash ((unsigned char *) argv[1]);
-	snprintf (buf, sizeof (buf), SHEERDNS_DIR "/%s/%s", s, argv[1]);
+	snprintf (buf, sizeof (buf), "/%s/%s", s, argv[1]);
 	mkdir (buf);
 	l = strlen ((char *) s);
 	write (1, s, l);
