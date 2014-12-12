@@ -68,6 +68,7 @@ get_file_name (char *buf, int len, int qtype, unsigned char *s) {
     if (*s) {
 	if ( (fd = open(str, O_RDONLY)) != -1 )
 		snprintf (buf, len, "/%s/%s/%s", hex_hash (s), s, qtype_name[qtype]);
+		close(fd);
   	else
 		snprintf (buf, len, "/default/%s", qtype_name[qtype]);
      } else {
